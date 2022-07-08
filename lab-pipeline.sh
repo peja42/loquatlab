@@ -2,13 +2,17 @@
 ################################################################
 #####################                      #####################
 #####################   枇杷实验室服务器     #####################
-#####################     jlh-2022/7/6     #####################
+#####################         jlh          #####################
 #####################                      #####################
-################################################################
 ################################################################
 ################################################################
 #############                                      #############
 #############   文中出现的____均为需要修改的参数      #############
+#############                                      #############
+################################################################
+################################################################
+#############                                      #############
+#############   持续更新中，最近更新时间2022/7/8      #############
 #############                                      #############
 ################################################################
 ################################################################
@@ -175,7 +179,7 @@ qiime composition ancom \
 
 # 新建工作目录并进入
 # 将dada2降噪后rep-seqs.qza和table.qza后缀修改为rar
-# 提取data内文件dna-sequences.fasta和feature-table.biom放入工作目录____
+# 提取data文件夹中dna-sequences.fasta和feature-table.biom放入工作目录____
 mkdir /storage/wudi/picrust2/____
 cd /storage/wudi/picrust2/____
 
@@ -211,10 +215,38 @@ python3 /storage/wudi/picrust2-2.5.0/summarizeAbundance.py \
 =IF(ISERROR(FIND(":ko",A2)),A2,LEFT(A2,LEN(A2)-14))
 
 
-  
+
+### 一、MicrobiomeAnalyst_pipeline
+
+##  0.准备工作
+
+# 新建工作目录
+mkdir /storage/wudi/biom/____
+
+# 提取qiime2中table-l6.qza文件并修改后缀为rar
+# 提取data文件夹中feature-table.biom放入工作目录____
+
+# 运行虚拟环境
+cd /storage/wudi/biom
+source venv/bin/activate
+cd /storage/wudi/biom/____
+
+# 转换biom为经典格式
+biom convert -i feature-table.biom -o table-l6.txt --to-tsv
+
+# 将table-l6.txt和metadata.txt文件放入工作目录
+
+##  1.MicrobiomeAnalyst操作
+
+# 登录https://www.microbiomeanalyst.ca
+# 根据Data Upload要求修改ASV table、Metadata file、Taxonomy table和phylogenetic tree
+# 详细教程可参考https://mp.weixin.qq.com/s/QDBEl8PFiXGZdaH20Yfbjw
+
+
+
 ############################################################################
 #################################          #################################
-#################################   附录   #################################
+#################################   附录    #################################
 #################################          #################################
 ############################################################################
 
@@ -306,3 +338,23 @@ add_descriptions.py -i EC_metagenome_out/pred_metagenome_unstrat.tsv.gz -m EC \
 # 添加pathway注释(基于MetaCyc数据库)
 add_descriptions.py -i pathways_out/path_abun_unstrat.tsv.gz -m METACYC \
 -o pathways_out/path_abun_unstrat_descrip.tsv.gz
+
+
+
+### 三、MicrobiomeAnalyst
+
+##  0.环境搭建
+
+# 进入工作目录
+cd /storage/wudi/biom
+
+# 创建虚拟环境
+python3 -m venv venv
+
+# 安装biom包
+pip install biom-format
+
+# 安装biom2.0格式支持
+pip install h5py
+
+
