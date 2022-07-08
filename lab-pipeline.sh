@@ -216,14 +216,14 @@ python3 /storage/wudi/picrust2-2.5.0/summarizeAbundance.py \
 
 
 
-### 一、MicrobiomeAnalyst_pipeline
+### 三、MicrobiomeAnalyst_pipeline
 
 ##  0.准备工作
 
 # 新建工作目录
 mkdir /storage/wudi/biom/____
 
-# 提取qiime2中table-l6.qza文件并修改后缀为rar
+# 提取qiime2中table.qza文件并修改后缀为rar
 # 提取data文件夹中feature-table.biom放入工作目录____
 
 # 运行虚拟环境
@@ -232,16 +232,14 @@ source venv/bin/activate
 cd /storage/wudi/biom/____
 
 # 转换biom为经典格式
-biom convert -i feature-table.biom -o table-l6.txt --to-tsv
-
-# 将table-l6.txt和metadata.txt文件放入工作目录
+biom convert -i feature-table.biom -o table.txt --to-tsv
 
 ##  1.MicrobiomeAnalyst操作
 
 # 根据Data Upload要求修改ASV table、Metadata file、Taxonomy table和phylogenetic tree
-# 编辑table-l6.txt第一行(加#NAME)得到asv_table.txt
+# 编辑table.txt第一行(加#NAME)得到asv_table.txt
 # 编辑metadata.txt第一行(加#NAME)得到meta.txt
-# 修改taxonomy.qza后缀为rar，提取data文件夹中taxonomy.tsv，修改得到taxa.txt
+# 修改taxonomy.qza后缀为rar，提取data文件夹中taxonomy.tsv，利用Excel修改taxonomy.tsv得到taxa.txt
 # 修改rooted-tree.qza后缀为rar，提取data文件夹中tree.nwk
 
 # 登录https://www.microbiomeanalyst.ca
