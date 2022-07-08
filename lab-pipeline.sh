@@ -240,7 +240,7 @@ biom convert -i feature-table.biom -o table-l6.txt --to-tsv
 
 # 登录https://www.microbiomeanalyst.ca
 # 根据Data Upload要求修改ASV table、Metadata file、Taxonomy table和phylogenetic tree
-# 详细教程可参考https://mp.weixin.qq.com/s/QDBEl8PFiXGZdaH20Yfbjw
+# 详细教程可参考https://mp.weixin.qq.com/s/M1Pdr06Yo3APtCMq4w1hfQ
 
 
 
