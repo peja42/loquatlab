@@ -2,7 +2,7 @@
 
 <https://github.com/peja42/loquatlab.git>
 
-- 使用教程 [pipeline](https://github.com/peja42/loquatlab/blob/main/lab-pipeline.sh)
+- Protocol [Pipeline](https://github.com/peja42/loquatlab/blob/main/lab-pipeline.sh)
 
 ---
 
