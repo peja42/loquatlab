@@ -6,6 +6,8 @@
 
 ---
 
-- 生成 [MkDocs](https://www.mkdocs.org) 
-- 主题 [Material](https://github.com/squidfunk/mkdocs-material)
-- 发布 [GitHub Pages](https://yang-xijie.github.io/BLOG/Markdown/github-pages/) 
+- QIIME 2 [Example Datasets](https://github.com/squidfunk/mkdocs-material)
+- PICRUSt2  [Example Datasets](https://github.com/peja42/loquatlab/tree/main/picrust2)
+- MicrobiomeAnalyst [Example Datasets](https://github.com/peja42/loquatlab/tree/main/MicrobiomeAnalyst)
+
+<p align="right">Powered by Jlh</p>
