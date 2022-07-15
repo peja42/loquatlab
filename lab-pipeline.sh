@@ -237,9 +237,9 @@ biom convert -i feature-table.biom -o table.txt --to-tsv
 ##  1.MicrobiomeAnalyst操作
 
 # 根据Data Upload要求修改ASV table、Metadata file、Taxonomy table和phylogenetic tree
-# 编辑table.txt第一行(加#NAME)得到asv_table.txt
+# 编辑table.txt标题行(加#NAME)得到asv_table.txt
 # 编辑metadata.txt第一行(加#NAME)得到meta.txt
-# 修改taxonomy.qza后缀为rar，提取data文件夹中taxonomy.tsv，利用Excel修改taxonomy.tsv得到taxa.txt
+# 修改taxonomy.qza后缀为rar，提取data文件夹中taxonomy.tsv，利用Excel修改taxonomy.tsv得到taxa.txt(去掉 x__;去掉Confidence;第一行数据需要精确到Species)
 # 修改rooted-tree.qza后缀为rar，提取data文件夹中tree.nwk
 
 # 登录https://www.microbiomeanalyst.ca
