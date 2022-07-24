@@ -243,6 +243,7 @@ biom convert -i feature-table.biom -o table.txt --to-tsv
 ##  2.MicrobiomeAnalyst(Correlation Analysis)
 
 # 根据Data Upload要求修改ASV table、Metadata file和Taxonomy table
+# 可参考Example Datasets(Infected和UnInfected)
 
 ############################################################################
 #################################          #################################
