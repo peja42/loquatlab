@@ -245,6 +245,94 @@ biom convert -i feature-table.biom -o table.txt --to-tsv
 # 根据Data Upload要求修改ASV table、Metadata file和Taxonomy table
 # 可参考Example Datasets(Infected和UnInfected)
 
+
+
+### 四、ggClusterNet_pipeline(仅在PC端进行测试，未在服务器测试)
+
+##  0.准备工作
+
+# 下载所需R包，下载后解压到R语言安装路径(下载链接：https://pan.baidu.com/s/1szwCjdvab2Tn9EXeU2BJnQ 提取码：peja)
+# 查看R语言安装路径
+.libPaths()
+
+# 设置工作目录
+setwd("E:ggClusterNet")
+getwd()
+
+# 加载所需R包
+library(phyloseq)
+library(igraph)
+library(network)
+library(sna)
+library(tidyverse)
+library(ggClusterNet)
+
+##  1. 数据导入(依照Example Datasets修改标题行)
+metadata = read.delim("2x_meta.tsv",row.names = 1)
+otutab = read.delim("2x_asv_table.txt", row.names=1)
+taxonomy = read.table("taxa.txt", row.names=1)
+
+ps = phyloseq(sample_data(metadata),
+              otu_table(as.matrix(otutab), taxa_are_rows=TRUE),
+              tax_table(as.matrix(taxonomy))
+              )
+
+# 提取丰度最高的指定数量的otu进行构建网络
+# N和r.threshold参数均可修改(此处采用N = 100r.threshold=0.90)
+result = corMicro (ps = ps,
+                   N = 100,
+                   method.scale = "TMM",
+                   r.threshold=0.90,
+                   p.threshold=0.05,
+                   method = "spearman"
+)
+
+# 提取相关矩阵
+cor = result[[1]]
+ps_net = result[[3]]
+
+# 导出otu表格
+otu_table = ps_net %>% 
+  vegan_otu() %>%
+  t() %>%
+  as.data.frame()
+
+tax = ps_net %>% vegan_tax() %>%
+  as.data.frame()
+tax$filed = tax$Phylum
+
+##  2. 按照微生物分类不同设定分组(‘V3’默认为‘Phylum’，可修改)
+group1 <- data.frame(ID = row.names(tax),group = tax$V3)
+group1$group  =as.factor(group1$group)
+
+# 计算布局
+result1 = PolygonRrClusterG (cor = cor,nodeGroup =group1 )
+node = result1[[1]]
+
+# 计算节点并注释
+tax_table = ps_net %>%
+  vegan_tax() %>%
+  as.data.frame()
+nodes = nodeadd(plotcord =node,otu_table = otu_table,tax_table = tax_table)
+names(nodes)[names(nodes) == 'V3'] <- 'Phylum'
+
+# 计算边
+edge = edgeBuild(cor = cor,node = node)
+
+##  3. 出图
+pnet <- ggplot() + geom_segment(aes(x = X1, y = Y1, xend = X2, yend = Y2,color = as.factor(cor)),
+                                data = edge, size = 0.5) +
+geom_point(aes(X1, X2,fill = Phylum,size = mean),pch = 21, data = nodes) +
+scale_colour_brewer(palette = "Set1") +
+scale_x_continuous(breaks = NULL) + scale_y_continuous(breaks = NULL) +
+theme(panel.background = element_blank()) +
+theme(axis.title.x = element_blank(), axis.title.y = element_blank()) +
+theme(legend.background = element_rect(colour = NA)) +
+theme(panel.background = element_rect(fill = "white",  colour = NA)) +
+theme(panel.grid.minor = element_blank(), panel.grid.major = element_blank())
+
+pnet
+
 ############################################################################
 #################################          #################################
 #################################   附录    #################################
