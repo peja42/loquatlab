@@ -229,7 +229,7 @@ cd /storage/wudi/biom/____
 # 转换biom为经典格式
 biom convert -i feature-table.biom -o table.txt --to-tsv
 
-##  1.MicrobiomeAnalyst操作
+##  1.MicrobiomeAnalyst常规操作
 
 # 根据Data Upload要求修改ASV table、Metadata file、Taxonomy table和phylogenetic tree
 # 编辑table.txt标题行(加#NAME)得到asv_table.txt
@@ -240,7 +240,9 @@ biom convert -i feature-table.biom -o table.txt --to-tsv
 # 登录https://www.microbiomeanalyst.ca
 # 详细教程可参考https://mp.weixin.qq.com/s/M1Pdr06Yo3APtCMq4w1hfQ
 
+##  2.MicrobiomeAnalyst(Correlation Analysis)
 
+# 根据Data Upload要求修改ASV table、Metadata file和Taxonomy table
 
 ############################################################################
 #################################          #################################
